@@ -1,0 +1,2 @@
+{"func": "def buggy_divide(a, b):\n    return a * b  # Should be division", "target": 1}
+{"func": "def problematic_function():\n    print('Hello'  # Missing closing parenthesis", "target": 1}

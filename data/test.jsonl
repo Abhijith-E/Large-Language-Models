@@ -1,0 +1,2 @@
+{"func": "def infinite_loop():\n    while True:\n        pass", "target": 1}
+{"func": "def null_reference():\n    x = None\n    return x.length", "target": 1}

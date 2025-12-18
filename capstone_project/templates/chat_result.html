@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Answer</title></head>
+<body>
+  <h2>Question</h2>
+  <p>{{ question }}</p>
+
+  <h2>Answer (grounded)</h2>
+  <pre>{{ answer }}</pre>
+
+  <h3>Readability</h3>
+  <p>Flesch: {{ readability.flesch }} | Grade: {{ readability.grade }}</p>
+
+  <h3>Naive Faithfulness Score</h3>
+  <p>{{ '%.3f'|format(faith) }}</p>
+
+  <h3>Retrieved Passages (used for grounding)</h3>
+  <ol>
+    {% for p in retrieved %}
+      <li><strong>{{ p.id }}</strong> - {{ p.text[:400] }}{% if p.text|length > 400 %}...{% endif %}</li>
+    {% endfor %}
+  </ol>
+
+  <p><a href="{{ url_for('chat') }}">Ask another question</a></p>
+  <p><a href="{{ url_for('reset') }}">Reset session</a></p>
+</body>
+</html>

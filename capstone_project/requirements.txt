@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+sentence-transformers
+faiss-cpu
+transformers
+torch          # install CPU or GPU build as appropriate
+PyMuPDF        # fitz
+nltk
+numpy
+scikit-learn
+uvicorn
+python-dotenv

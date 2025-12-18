@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Annual Report Local Demo</title>
+  <style>
+    body{font-family: Arial; margin:20px}
+    .chat{border:1px solid #ddd;padding:10px;height:320px;overflow:auto}
+    .row{margin:10px 0}
+  </style>
+</head>
+<body>
+  <h2>Annual Report — Local Summarizer & QA (No OpenAI)</h2>
+
+  <div class="row">
+    <input id="pdffile" type="file" accept="application/pdf"/>
+    <button onclick="upload()">Upload & Process</button>
+  </div>
+
+  <div class="row">
+    <button onclick="getSummary()">Get Executive Summary</button>
+    <pre id="summary"></pre>
+  </div>
+
+  <h3>Ask questions from the report</h3>
+  <div class="chat" id="chatbox"></div>
+  <div class="row">
+    <input id="q" style="width:70%"/>
+    <button onclick="ask()">Ask</button>
+  </div>
+
+  <script>
+    const base = "http://localhost:8000";
+
+    async function upload(){
+      const f = document.getElementById("pdffile").files[0];
+      if(!f) return alert("Choose a PDF");
+      const fd = new FormData();
+      fd.append("file", f);
+      const res = await fetch(base + "/upload_pdf/", {method:"POST", body: fd});
+      const j = await res.json();
+      alert("Processed: " + JSON.stringify(j));
+    }
+
+    async function getSummary(){
+      const res = await fetch(base + "/summary/");
+      const j = await res.json();
+      document.getElementById("summary").textContent = j.summary;
+    }
+
+    async function ask(){
+      const q = document.getElementById("q").value;
+      if(!q) return;
+      const res = await fetch(base + "/query/", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({query: q, top_k: 5})
+      });
+      const j = await res.json();
+      const box = document.getElementById("chatbox");
+      box.innerHTML += `<div><b>You:</b> ${q}</div>`;
+      box.innerHTML += `<div><b>Answer:</b> ${j.answer} <br/><b>Confidence:</b> ${j.confidence.toFixed(3)}</div>`;
+      box.innerHTML += `<div><b>Sources:</b><ul>${j.sources.map(s => '<li>Page ' + s.page + ' — ' + s.snippet + '...</li>').join('')}</ul></div><hr/>`;
+      box.scrollTop = box.scrollHeight;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Report Indexed</title></head>
+<body>
+  <h2>Report Indexed: {{ filename }}</h2>
+  <p>Choose an action:</p>
+  <form action="{{ url_for('generate_summary') }}" method="post">
+    <button type="submit">Generate Executive Summary & Key Points</button>
+  </form>
+  <p><a href="{{ url_for('chat') }}">Go to Q&A chat</a></p>
+  <p><a href="{{ url_for('reset') }}">Reset session</a></p>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Annual Report Summarizer</title></head>
+<body>
+  <h1>Annual Report Summarizer & Key-Point Identifier</h1>
+  <p>Upload an annual report PDF (company annual report / 10-K / 20-F). The system will index it and let you generate a grounded summary and ask questions.</p>
+
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <label>Annual report PDF: <input type="file" name="file" accept=".pdf" required></label><br/><br/>
+    <button type="submit">Upload & Index</button>
+  </form>
+
+  <p><a href="{{ url_for('reset') }}">Reset session</a></p>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+      {% for category, msg in messages %}
+        <li><strong>{{ category }}:</strong> {{ msg }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</body>
+</html>

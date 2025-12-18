@@ -1,0 +1,6 @@
+{"func": "def add(a, b):\n    return a + b", "target": 0}
+{"func": "def subtract(a, b):\n    return a - b", "target": 0}
+{"func": "def divide(a, b):\n    return a / b", "target": 0}
+{"func": "def multiply(a, b):\n    return a * b", "target": 0}
+{"func": "def calculate(a, b):\n    result = a + b\n    return result", "target": 0}
+{"func": "def buggy_add(a, b):\n    return a - b  # Should be addition", "target": 1}

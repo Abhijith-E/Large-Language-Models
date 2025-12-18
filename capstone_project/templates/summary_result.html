@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Summary Result</title></head>
+<body>
+  <h2>Executive Summary - {{ title }}</h2>
+  <pre>{{ summary }}</pre>
+
+  <h3>Readability</h3>
+  <p>Flesch Reading Ease: {{ readability.flesch }} | Flesch-Kincaid Grade: {{ readability.grade }}</p>
+
+  <h3>Naive Faithfulness Score (overlap):</h3>
+  <p>{{ '%.3f'|format(faith) }}</p>
+
+  <h3>Top Retrieved Passages (context)</h3>
+  <ol>
+  {% for p in retrieved %}
+    <li><strong>{{ p.id }}</strong> - {{ p.text[:400] }}{% if p.text|length > 400 %}...{% endif %}</li>
+  {% endfor %}
+  </ol>
+
+  <p><a href="{{ url_for('chat') }}">Ask questions about the report</a></p>
+  <p><a href="{{ url_for('reset') }}">Reset session</a></p>
+</body>
+</html>

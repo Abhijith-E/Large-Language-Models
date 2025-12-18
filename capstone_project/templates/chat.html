@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Chat - Ask about report</title></head>
+<body>
+  <h2>Ask a question about the indexed report</h2>
+  <form action="{{ url_for('ask') }}" method="post">
+    <textarea name="question" rows="4" cols="80" placeholder="E.g., What was revenue growth in 2024?" required></textarea><br/>
+    <button type="submit">Ask</button>
+  </form>
+  <p><a href="{{ url_for('report') }}">Back</a> | <a href="{{ url_for('reset') }}">Reset</a></p>
+</body>
+</html>
